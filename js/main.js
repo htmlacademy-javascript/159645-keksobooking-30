@@ -1,3 +1,3 @@
 import { getAds } from './data.js';
 
-(getAds());
+getAds();

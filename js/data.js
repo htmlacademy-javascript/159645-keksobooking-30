@@ -26,6 +26,12 @@ const CHECKIN_TIME = [
   '14:00'
 ];
 
+const CHECKOUT_TIME = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+
 const FEATURES = [
   'wifi',
   'dishwasher',
@@ -41,13 +47,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-const Type = {
-  PALACE: 'palace',
-  FLAT: 'flat',
-  HOUSE: 'house',
-  BUNGALOW: 'bungalow',
-  HOTEL: 'hotel'
-};
+const TYPE = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel'
+];
 
 const PriceRange = {
   MIN: 0,
@@ -84,11 +90,11 @@ const createOffer = () => ({
   title: getRandomArrayElement(OFFER_TITLE),
   address: createLocation(),
   price: getRandomInteger(PriceRange.MIN, PriceRange.MAX),
-  type: getRandomArrayElement(Object.keys(Type)),
+  type: getRandomArrayElement(TYPE),
   rooms: getRandomInteger(),
   guests: getRandomInteger(),
   checkin: getRandomArrayElement(CHECKIN_TIME),
-  checkout: getRandomArrayElement(CHECKIN_TIME),
+  checkout: getRandomArrayElement(CHECKOUT_TIME),
   features: createFeatures(),
   description: getRandomArrayElement(DESCRIPTION),
   photos: createPhotos(),
