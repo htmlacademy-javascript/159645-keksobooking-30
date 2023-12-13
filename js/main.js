@@ -1,3 +1,5 @@
 import { getAds } from './data.js';
+import { renderCards } from './card.js';
 
-getAds();
+const ad = getAds();
+renderCards(ad);
