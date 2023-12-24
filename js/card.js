@@ -8,7 +8,6 @@ const offerTypeToTitle = {
 
 const cardTemplate = document.querySelector('#card')
   .content.querySelector('.popup');
-const containerElement = document.querySelector('#map-canvas');
 
 const renderFeatures = (card, offerFeatures) => {
   const featuresList = card.querySelectorAll('.popup__feature');
@@ -64,14 +63,4 @@ const createCard = ({ offer, author }) => {
   return card;
 };
 
-const renderCards = (ads) => {
-  const fragment = document.createDocumentFragment();
-  ads.forEach((ad) => {
-    const card = createCard(ad);
-    fragment.append(card);
-  });
-
-  containerElement.append(fragment);
-};
-
-export { renderCards };
+export { createCard };
