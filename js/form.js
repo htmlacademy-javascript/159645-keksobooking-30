@@ -1,3 +1,5 @@
+import { createSlider, updateSliderOptions, resetSlider } from './slider';
+
 const TITLE_LENGTH = {
   min: 30,
   max: 100
@@ -60,6 +62,9 @@ const disablesFiltersForm = () => {
 const activatesAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
   adFormElements.forEach((element) => element.removeAttribute('disabled', ''));
+  createSlider();
+  updateSliderOptions();
+  resetSlider ();
 };
 
 const activatesMapFiltersForm = () => {
@@ -91,7 +96,7 @@ const validateAdTitle = (value) => value.length >= TITLE_LENGTH.min && value.len
 
 const validateAdPrice = (value) => value >= MIN_PRICE[typeAdForm.value] && value <= MAX_PRICE;
 
-const validateRoomsAndGuests = (value) => ROOMS_GUESTS_OPTIONS[roomsCountForm.value].includes(value);
+const validateRoomsAndGuests = () => ROOMS_GUESTS_OPTIONS[roomsCountForm.value].includes(guestsCountForm.value);
 
 pristine.addValidator(titleAdForm, validateAdTitle, ERROR_TITLE_MESSAGE, 1, true);
 pristine.addValidator(priceAdForm, validateAdPrice, ERROR_PRICE_MESSAGE, 1, true);
@@ -103,5 +108,18 @@ timeOut.addEventListener('change', onTimeChange);
 roomsCountForm.addEventListener('change', onRoomsAndGuestsChange);
 guestsCountForm.addEventListener('change', onRoomsAndGuestsChange);
 adForm.addEventListener('submit', onFormSubmit);
+
+roomsCountForm.addEventListener('change', (evt) => {
+  const newValue = evt.target.value;
+  const guestsOptions = Array.from(guestsCountForm.querySelectorAll('option'));
+  guestsOptions.forEach((element) => {
+    if (newValue !== element.value) {
+      element.disabled = true;
+    } else {
+      element.disabled = false;
+    }
+  });
+  guestsCountForm.value = newValue;
+});
 
 export { disablesAdForm, disablesFiltersForm, activatesAdForm, activatesMapFiltersForm };
