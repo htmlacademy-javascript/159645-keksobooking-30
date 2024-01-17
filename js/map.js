@@ -1,5 +1,6 @@
 import { disablesAdForm, disablesFiltersForm, activatesAdForm, activatesMapFiltersForm } from './form.js';
 import { createCard } from './card.js';
+import { getAds } from './data.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -69,14 +70,20 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const createMarker = (point, data) => {
-  const {lat, lng} = point;
+  const lat = point.split(',')[0].trim();
+  const lng = point.split(',')[1].trim();
+  const pinIcon = L.icon({
+    iconUrl: iconSimilarConfig.url,
+    iconSize: [iconSimilarConfig.width, iconSimilarConfig.height],
+    iconAnchor: [iconSimilarConfig.anchorX, iconSimilarConfig.anchorY],
+  });
   const marker = L.marker(
     {
       lat,
       lng,
     },
     {
-      icon: iconSimilarConfig,
+      icon: pinIcon,
     },
   );
 
@@ -90,6 +97,8 @@ const createMarkers = (ads) => {
     createMarker(ad.location, ad);
   });
 };
+
+createMarkers(getAds());
 
 const resetMap = () => {
   mainPinMarker.setLatLng(startCoordinate);
